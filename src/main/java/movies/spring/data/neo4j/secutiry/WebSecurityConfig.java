@@ -18,11 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, LOGIN).permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .anyRequest().authenticated().and()
                 .addFilterBefore(new RestConfigCors(), ChannelProcessingFilter.class)
                 .addFilterBefore(new JWTLoginFilter(LOGIN, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -31,9 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("password")
-                .roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
     }
 }

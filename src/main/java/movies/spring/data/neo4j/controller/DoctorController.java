@@ -11,22 +11,23 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(value = "/app-maisvida")
+@RequestMapping(value = "/app-maisvida/doctor")
 public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Doctor> findAll(@RequestParam(value = "limit", required = false) Integer limit) {
-        limit = Optional.ofNullable(limit).orElse(100);
-        return doctorService.findAllLimited(limit);
-    }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Doctor> save(@RequestBody Doctor doctor) {
         Doctor doctorSaved = doctorService.save(doctor);
         return ResponseEntity.ok().body(doctorSaved);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<List<Doctor>> getAll(@RequestParam(value = "limit", required = false) Integer limit) {
+        limit = Optional.ofNullable(limit).orElse(100);
+        List<Doctor> doctors = doctorService.findAllLimited(limit);
+        return ResponseEntity.ok().body(doctors);
     }
 }
