@@ -4,6 +4,7 @@ package movies.spring.data.neo4j.services;
 import movies.spring.data.neo4j.domain.Doctor;
 import movies.spring.data.neo4j.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,4 +24,5 @@ public class DoctorService {
     public Doctor save(Doctor doctor) {
         return doctorRepository.save(doctor);
     }
+
 }
